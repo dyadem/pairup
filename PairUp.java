@@ -35,29 +35,50 @@ public class PairUp{
 	public static boolean PairUp225(int[] A){
 		int n = A.length;
 		int count = 0;
-		if (n % 2 != 0){
-			System.out.println("Array length is not even even!");
+
+		//check if array input is empty
+		if (A.length == 0 || A == null){
+			System.out.println("Array is empty");
 			return false;
 		}
-		Arrays.sort(A);
-		int j = n-1;
-		outerLoop: for (int i=0; i<n/2; i++){
-			innerLoop: while (j>n/2-1){
-				if (A[i]+A[j] == 225){
-					count = count+1;
-					j = j-1;
-					continue outerLoop;
-				}
-				else{
-					j = j-1;
-				}
+		//check if array has an even number of values to pair up
+		if (n % 2 != 0){
+			System.out.println("Array length is not even");
+			return false;
+		}
+
+		//check if array has all values in desired range
+		for (int i = 0; i < n; i++){
+			if (A[i] > 225){
+				return false;
 			}
 		}
+
+		//create a tally array and increment the element equal to 
+		//instances of elements in input array 
+		int [] Tally = new int [226];
+		for (int i = 0; i < n; i++){
+			Tally[A[i]]++;
+		}
+
+		//iterate through the first half of the tally array
+		//pairing them with tally numbers of their pairs in the
+		//second half of the array equalling to 225 
+		for (int i = 0; i < 113; i++){
+			if (Tally[i] == 0){
+				continue;
+			}
+			else if (Tally[225-i] == Tally[i]){
+				count = count + Tally[i];
+			}
+		}
+		//if all the elements of the input array are paired return true
 		if (count == n/2){
 			return true;
-		}	
+		}
 		return false;
 	}
+	
 	/* main()
 	   Contains code to test the PairUp225 function. Nothing in this function 
 	   will be marked. You are free to change the provided code to test your 
