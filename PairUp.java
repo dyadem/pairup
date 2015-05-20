@@ -47,17 +47,14 @@ public class PairUp{
 			return false;
 		}
 
-		//check if array has all values in desired range
-		for (int i = 0; i < n; i++){
-			if (A[i] > 225){
-				return false;
-			}
-		}
-
 		//create a tally array and increment the element equal to 
 		//instances of elements in input array 
 		int [] Tally = new int [226];
 		for (int i = 0; i < n; i++){
+			//check if array has any values beyond desired range
+			if(A[i]>225){
+				return false;
+			}
 			Tally[A[i]]++;
 		}
 
